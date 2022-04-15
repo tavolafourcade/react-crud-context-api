@@ -1,21 +1,22 @@
 import {Router} from "express"
+import { getPosts, createPost, updatePost, deletePost, getPost } from '../controllers/posts.controllers.js'
 const router = Router()
 
 // CRUD
 
 // Return an array of posts from the DB
-router.get('/posts', (req,res) => [])
+router.get('/posts', getPosts)
 
 // Create a post
-router.post('/posts', (req,res) => res.send('New post created'))
+router.post('/posts', createPost)
 
 // Update a post
-router.put('/posts', (req,res) => res.send('Updating a post'))
+router.put('/posts', updatePost)
 
 // Delete a post
-router.delete('/posts', (req,res) => res.send('Deleting a post'))
+router.delete('/posts', deletePost)
 
 // Return one post from the DB
-router.get('/posts/:id', (req,res) => res.send('Getting a post'))
+router.get('/posts/:id', getPost)
 
 export default router
