@@ -15,7 +15,7 @@ router.get('/posts', getPosts)
 router.post('/posts', createPost)
 
 // Update a post
-router.put('/posts', updatePost)
+router.put('/posts/:id', updatePost)
 
 // Delete a post
 router.delete('/posts', deletePost)

@@ -16,10 +16,16 @@ export const createPost = async (req, res) => {
   // Saving the new Post
   await newPost.save()
 
-// Answering to the Client with a json object (a new Post)
+  // Answering to the Client with a json object (a new Post)
   return res.json(newPost)
 }
 
-export const updatePost = (req, res) => res.send('Updating a post')
+// Update a post
+export const updatePost = async (req, res) => {
+  const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+  updatedPost.save()
+  return res.send(updatedPost)
+}
 export const deletePost = (req, res) => res.send('Deleting a post')
 export const getPost = (req, res) => res.send('Getting a post')
