@@ -1,5 +1,9 @@
-import {Router} from "express"
-import { getPosts, createPost, updatePost, deletePost, getPost } from '../controllers/posts.controllers.js'
+import { Router } from 'express'
+import {
+  getPosts, createPost, updatePost, deletePost, getPost,
+// eslint-disable-next-line import/extensions
+} from '../controllers/posts.controllers.js'
+
 const router = Router()
 
 // CRUD

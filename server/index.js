@@ -1,5 +1,7 @@
-import express from "express"
-import postsRoutes from "./routes/posts.routes.js"
+import express from 'express'
+// eslint-disable-next-line import/extensions
+import postsRoutes from './routes/posts.routes.js'
+
 const app = express()
 
 app.use(postsRoutes)
