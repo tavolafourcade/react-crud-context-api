@@ -18,7 +18,7 @@ router.post('/posts', createPost)
 router.put('/posts/:id', updatePost)
 
 // Delete a post
-router.delete('/posts', deletePost)
+router.delete('/posts/:id', deletePost)
 
 // Return one post from the DB
 router.get('/posts/:id', getPost)
