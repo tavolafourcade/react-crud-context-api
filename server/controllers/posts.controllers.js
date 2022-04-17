@@ -35,4 +35,11 @@ export const deletePost = async (req, res) => {
   if (!postRemoved) return res.sendStatus(404)
   return res.sendStatus(204)
 }
-export const getPost = (req, res) => res.send('Getting a post')
+
+// Return one post from the DB
+export const getPost = async (req, res) => {
+  const postRequested = await Post.findById(req.params.id)
+
+  if (!postRequested) return res.sendStatus(404)
+  return res.json(postRequested)
+}
