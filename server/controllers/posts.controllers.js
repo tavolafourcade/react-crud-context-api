@@ -1,4 +1,7 @@
+/* eslint-disable import/extensions */
+import fs from 'fs-extra'
 import Post from '../models/Post.js'
+import { uploadImage, deleteImage } from '../libs/cloudinary.js'
 
 // Return an array of posts from the DB
 export const getPosts = async (req, res) => {
@@ -14,9 +17,18 @@ export const getPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   try {
     const { title, description } = req.body
+    let image
+    if (req.files.image) {
+      const result = await uploadImage(req.files.image.tempFilePath)
+      image = {
+        url: result.secure_url,
+        public_id: result.public_id,
+      }
+      await fs.remove(req.files.image.tempFilePath)
+    }
 
     // Creating a new Post in our DB
-    const newPost = new Post({ title, description })
+    const newPost = new Post({ title, description, image })
 
     // Saving the new Post
     await newPost.save()
@@ -24,6 +36,7 @@ export const createPost = async (req, res) => {
     // Answering to the Client with a json object (a new Post)
     return res.json(newPost)
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ message: error.message })
   }
 }
@@ -45,6 +58,11 @@ export const deletePost = async (req, res) => {
     const postRemoved = await Post.findByIdAndDelete(req.params.id)
 
     if (!postRemoved) return res.sendStatus(404)
+
+    // Deleting the image from cloudinary if exists in the Post
+    if (postRemoved.image.public_id) {
+      await deleteImage(postRemoved.image.public_id)
+    }
     return res.sendStatus(204)
   } catch (error) {
     return res.status(500).json({ message: error.message })
