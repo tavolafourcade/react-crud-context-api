@@ -1,13 +1,14 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { HomePage, NotFoundPage, PostForm } from './pages'
 
 function App() {
   return (
-    <div>
-      <HomePage />
-      <NotFoundPage />
-      <PostForm />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/new" element={<PostForm />} />
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   )
 }
 
