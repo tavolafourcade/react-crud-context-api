@@ -1,15 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { VscEmptyWindow } from 'react-icons/vsc'
 import { usePosts } from '../context/postContext'
 
 function HomePage() {
-  const { getPosts } = usePosts()
+  const { posts } = usePosts()
 
-  useEffect(() => {
-    getPosts()
-  }, [])
+  if (posts.length === 0) {
+    return (
+      <div className="flex flex-col justify-center items-center">
+        <VscEmptyWindow className="w-48 h-48 text-white" />
+        <h1 className="text-white text-2xl">There are not posts yet...</h1>
+      </div>
+    )
+  }
   return (
     <div>
-      HomePage
+      {
+        posts.map((post) => (
+          // eslint-disable-next-line no-underscore-dangle
+          <div key={post._id} className="text-white">{post.title}</div>
+        ))
+      }
 
     </div>
   )

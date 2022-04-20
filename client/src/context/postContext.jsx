@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, {
+  createContext, useState, useContext, useEffect,
+} from 'react'
 import { getPostsRequest } from '../api/posts'
 
 const postContext = createContext()
@@ -17,14 +19,18 @@ function PostProvider({ children }) {
 
   const getPosts = async () => {
     const res = await getPostsRequest()
+    setPosts(res.data)
     console.log('res', res)
   }
+
+  useEffect(() => {
+    getPosts()
+  }, [])
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <postContext.Provider value={{
       posts,
-      getPosts,
     }}
     >
       {children}
