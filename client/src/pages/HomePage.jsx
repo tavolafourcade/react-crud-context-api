@@ -2,6 +2,7 @@ import React from 'react'
 import { VscEmptyWindow } from 'react-icons/vsc'
 import { Link } from 'react-router-dom'
 import { usePosts } from '../context/postContext'
+import PostCard from '../components/PostCard'
 
 function HomePage() {
   const { posts } = usePosts()
@@ -17,12 +18,16 @@ function HomePage() {
   return (
     <div>
       <Link to="/new">Create a new Post</Link>
-      {
+      <div className="grid grid-cols-3 gap-2">
+        {
         posts.map((post) => (
           // eslint-disable-next-line no-underscore-dangle
-          <div key={post._id} className="text-white">{post.title}</div>
+          // <div key={post._id} className="text-white">{post.title}</div>
+          // eslint-disable-next-line no-underscore-dangle
+          <PostCard post={post} key={post._id} />
         ))
       }
+      </div>
 
     </div>
   )
