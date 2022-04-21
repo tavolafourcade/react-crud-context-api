@@ -1,7 +1,7 @@
 import React, {
   createContext, useState, useContext, useEffect,
 } from 'react'
-import { getPostsRequest } from '../api/posts'
+import { getPostsRequest, createPostsRequest } from '../api/posts'
 
 const postContext = createContext()
 
@@ -23,6 +23,13 @@ function PostProvider({ children }) {
     console.log('res', res)
   }
 
+  const createPost = async (post) => {
+    const res = await createPostsRequest(post)
+    // Showing the posts sent to the DB as soon the user is redirected to '/'
+    setPosts([...posts, res.data])
+    console.log('res', res.data)
+  }
+
   useEffect(() => {
     getPosts()
   }, [])
@@ -31,6 +38,8 @@ function PostProvider({ children }) {
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <postContext.Provider value={{
       posts,
+      getPosts,
+      createPost,
     }}
     >
       {children}

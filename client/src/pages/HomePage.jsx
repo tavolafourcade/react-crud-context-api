@@ -1,5 +1,6 @@
 import React from 'react'
 import { VscEmptyWindow } from 'react-icons/vsc'
+import { Link } from 'react-router-dom'
 import { usePosts } from '../context/postContext'
 
 function HomePage() {
@@ -15,6 +16,7 @@ function HomePage() {
   }
   return (
     <div>
+      <Link to="/new">Create a new Post</Link>
       {
         posts.map((post) => (
           // eslint-disable-next-line no-underscore-dangle
