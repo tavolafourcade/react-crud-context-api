@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import React, {
   createContext, useState, useContext, useEffect,
 } from 'react'
-import { getPostsRequest, createPostsRequest } from '../api/posts'
+import { getPostsRequest, createPostsRequest, deletePostRequest } from '../api/posts'
 
 const postContext = createContext()
 
@@ -30,6 +31,12 @@ function PostProvider({ children }) {
     console.log('res', res.data)
   }
 
+  const deletePost = async (id) => {
+    await deletePostRequest(id)
+    console.log('ID to delete', id)
+    setPosts(posts.filter((post) => post._id !== id))
+  }
+
   useEffect(() => {
     getPosts()
   }, [])
@@ -40,6 +47,7 @@ function PostProvider({ children }) {
       posts,
       getPosts,
       createPost,
+      deletePost,
     }}
     >
       {children}
