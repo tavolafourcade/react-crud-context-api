@@ -8,24 +8,24 @@ import * as Yup from 'yup'
 import { usePosts } from '../context/postContext'
 
 function PostForm() {
-  const { createPost, getPost } = usePosts()
+  const { createPost, getPost, updatePost } = usePosts()
   const navigate = useNavigate()
   const params = useParams()
   const [post, setPost] = useState({
     title: '',
     description: '',
   })
-  console.log('params', params)
 
   // Get backend response and use it as initial value for Formik
   useEffect(() => {
     (async () => {
+      // If params has an id means the user wants to update
       if (params.id) {
         const data = await getPost(params.id)
         setPost(data)
       }
     })()
-  }, [])
+  }, [params.id])
 
   return (
     <div className="flex items-center justify-center">
@@ -42,7 +42,11 @@ function PostForm() {
             description: Yup.string().required('Description is required'),
           })}
           onSubmit={async (values) => {
-            await createPost(values)
+            if (params.id) {
+              await updatePost(params.id, values)
+            } else {
+              await createPost(values)
+            }
             navigate('/')
           }}
         >

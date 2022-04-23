@@ -45,7 +45,10 @@ function PostCard({ post }) {
           <button
             type="submit"
             className="bg-red-600 text-sm px-2 py-1 rounded-sm"
-            onClick={() => handleDelete(post._id)}
+            onClick={(e) => {
+              e.stopPropagation()
+              handleDelete(post._id)
+            }}
           >
             Delete
           </button>
