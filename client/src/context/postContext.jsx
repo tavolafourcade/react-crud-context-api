@@ -2,7 +2,9 @@
 import React, {
   createContext, useState, useContext, useEffect,
 } from 'react'
-import { getPostsRequest, createPostsRequest, deletePostRequest } from '../api/posts'
+import {
+  getPostsRequest, createPostsRequest, deletePostRequest, getPostRequest,
+} from '../api/posts'
 
 const postContext = createContext()
 
@@ -37,6 +39,12 @@ function PostProvider({ children }) {
     setPosts(posts.filter((post) => post._id !== id))
   }
 
+  // This function will get all data for a specific Post
+  const getPost = async (id) => {
+    const res = await getPostRequest(id)
+    return res.data
+  }
+
   useEffect(() => {
     getPosts()
   }, [])
@@ -48,6 +56,7 @@ function PostProvider({ children }) {
       getPosts,
       createPost,
       deletePost,
+      getPost,
     }}
     >
       {children}

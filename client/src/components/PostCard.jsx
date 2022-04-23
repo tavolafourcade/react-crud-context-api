@@ -2,10 +2,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import { usePosts } from '../context/postContext'
 
 function PostCard({ post }) {
   const { deletePost } = usePosts()
+  const navigate = useNavigate()
   const handleDelete = (_id) => {
     toast((t) => (
       <div>
@@ -34,7 +36,7 @@ function PostCard({ post }) {
     })
   }
   return (
-    <div className="bg-zinc-800 text-white rounded-sm shadow-md shadow-black hover:bg-zinc-700 hover:cursor-pointer ">
+    <div aria-hidden="true" onClick={() => navigate(`/posts/${post._id}`)} className="bg-zinc-800 text-white rounded-sm shadow-md shadow-black hover:bg-zinc-700 hover:cursor-pointer">
       <div className="px-4 py-7">
         <div className="flex justify-between">
           <h3>
