@@ -4,7 +4,18 @@ import axios from 'axios'
 
 export const getPostsRequest = async () => await axios.get('/posts')
 
-export const createPostsRequest = async (post) => await axios.post('/posts', post)
+// By default post expects a json object so I have to specified that it's a form
+export const createPostsRequest = async (post) => {
+  const form = new FormData()
+
+  Object.entries(post).forEach(([key, value]) => {
+    form.append(key, value)
+  })
+
+  return await axios.post('/posts', form, {
+    'Content-Type': 'multipart/form-data',
+  })
+}
 
 export const deletePostRequest = async (id) => await axios.delete(`/posts/${id}`)
 

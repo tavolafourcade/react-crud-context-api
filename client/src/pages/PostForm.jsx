@@ -5,6 +5,7 @@ import {
 } from 'formik'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import * as Yup from 'yup'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { usePosts } from '../context/postContext'
 
 function PostForm() {
@@ -14,6 +15,7 @@ function PostForm() {
   const [post, setPost] = useState({
     title: '',
     description: '',
+    image: null,
   })
 
   // Get backend response and use it as initial value for Formik
@@ -41,25 +43,70 @@ function PostForm() {
             title: Yup.string().required('Title is required'),
             description: Yup.string().required('Description is required'),
           })}
-          onSubmit={async (values) => {
+          onSubmit={async (values, actions) => {
             if (params.id) {
               await updatePost(params.id, values)
             } else {
               await createPost(values)
             }
+            actions.setSubmitting(false)
             navigate('/')
           }}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, setFieldValue, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
               <label htmlFor="title" className="text-sm block font-bold text-gray-400">Title</label>
-              <Field name="title" placeholder="title" className="px-3 py-2 focus:outline-none mb-4 rounded bg-gray-600 text-white w-full" />
-              <ErrorMessage name="title" className="text-red-400 text-sm" component="p" />
-              <label htmlFor="description" className="text-sm block font-bold text-gray-400">Description</label>
-              <Field rows={3} component="textarea" name="description" placeholder="description" className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full mb-4" />
-              <ErrorMessage name="description" component="p" className="text-red-400 text-sm" />
+              <Field
+                name="title"
+                placeholder="title"
+                className="px-3 py-2 focus:outline-none mb-4 rounded bg-gray-600 text-white w-full"
+              />
+              <ErrorMessage
+                name="title"
+                className="text-red-400 text-sm"
+                component="p"
+              />
+              <label
+                htmlFor="description"
+                className="text-sm block font-bold text-gray-400"
+              >
+                Description
+              </label>
+              <Field
+                rows={3}
+                component="textarea"
+                name="description"
+                placeholder="description"
+                className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full mb-4"
+              />
+              <ErrorMessage
+                name="description"
+                component="p"
+                className="text-red-400 text-sm"
+              />
+              <label
+                htmlFor="description"
+                className="text-sm block font-bold text-gray-400"
+              >
+                Description
 
-              <button type="submit" className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded mt-2 text-white focus-outline:none disabled:bg-indigo-400">Save</button>
+              </label>
+              <input
+                type="file"
+                name="image"
+                className="px-3 py-2 focus:outline-none rounded bg-gray-600 text-white w-full"
+                onChange={(e) => setFieldValue('image', e.target.files[0])}
+              />
+
+              <button
+                type="submit"
+                className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded mt-2 text-white focus-outline:none disabled:bg-indigo-400"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <AiOutlineLoading3Quarters className="animate-spin h-5 w-5" />
+                ) : 'Save'}
+              </button>
             </Form>
           )}
         </Formik>

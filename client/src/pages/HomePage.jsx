@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react'
 import { VscEmptyWindow } from 'react-icons/vsc'
 import { Link } from 'react-router-dom'
@@ -17,13 +18,18 @@ function HomePage() {
   }
   return (
     <div>
-      <Link to="/new">Create a new Post</Link>
-      <div className="grid grid-cols-3 gap-2">
+      <header className="flex justify-between py-4">
+        <h1 className="text-2xl text-gray-300 font-bold">
+          Posts
+          (
+          {posts.length}
+          )
+        </h1>
+        <Link className="px-3 py-2 bg-indigo-500 hover:bg-indigo-600 text-white" to="/new">Create a new Post</Link>
+      </header>
+      <div className="grid grid-cols-3 gap-4">
         {
         posts.map((post) => (
-          // eslint-disable-next-line no-underscore-dangle
-          // <div key={post._id} className="text-white">{post.title}</div>
-          // eslint-disable-next-line no-underscore-dangle
           <PostCard post={post} key={post._id} />
         ))
       }

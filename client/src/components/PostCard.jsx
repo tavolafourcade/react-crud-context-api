@@ -44,9 +44,9 @@ function PostCard({ post }) {
           </h3>
           <button
             type="submit"
-            className="bg-red-600 text-sm px-2 py-1 rounded-sm"
+            className="bg-red-600 hover:bg-red-500 text-sm px-2 py-1 rounded-sm"
             onClick={(e) => {
-              e.stopPropagation()
+              e.stopPropagation() // avoid any redirection when delete button is clicked
               handleDelete(post._id)
             }}
           >
@@ -56,8 +56,10 @@ function PostCard({ post }) {
         <p>
           {post.description}
         </p>
-
       </div>
+      {
+        post.image && <img className="w-full h-96 object-cover" alt="imagen" src={post.image.url} />
+      }
     </div>
   )
 }

@@ -25,9 +25,13 @@ function PostProvider({ children }) {
   }
 
   const createPost = async (post) => {
-    const res = await createPostsRequest(post)
-    // Showing the posts sent to the DB as soon the user is redirected to '/'
-    setPosts([...posts, res.data])
+    try {
+      const res = await createPostsRequest(post)
+      // Showing the posts sent to the DB as soon the user is redirected to '/'
+      setPosts([...posts, res.data])
+    } catch (error) {
+      console.log('ERROR', error)
+    }
   }
 
   const deletePost = async (id) => {
