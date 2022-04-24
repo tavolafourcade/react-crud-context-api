@@ -18,7 +18,7 @@ export const createPost = async (req, res) => {
   try {
     const { title, description } = req.body
     let image
-    if (req.files.image) {
+    if (req.files?.image) {
       const result = await uploadImage(req.files.image.tempFilePath)
       image = {
         url: result.secure_url,
@@ -36,7 +36,6 @@ export const createPost = async (req, res) => {
     // Answering to the Client with a json object (a new Post)
     return res.json(newPost)
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ message: error.message })
   }
 }
