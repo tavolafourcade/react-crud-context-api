@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "node": "14.18.1",
   "scripts": {
     "dev": "nodemon server --ignore client",
     "build": "npm install --prefix client && npm run build --prefix client",
@@ -37,5 +36,8 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.29.4",
     "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "14.18.1"
   }
 }
