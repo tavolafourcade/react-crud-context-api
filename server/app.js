@@ -1,8 +1,5 @@
-/* eslint-disable import/extensions */
-/* eslint-disable no-underscore-dangle */
 import express from 'express'
 import fileUpload from 'express-fileupload'
-// eslint-disable-next-line import/extensions
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import postsRoutes from './routes/posts.routes.js'

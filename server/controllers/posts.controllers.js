@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import fs from 'fs-extra'
 import Post from '../models/Post.js'
 import { uploadImage, deleteImage } from '../libs/cloudinary.js'

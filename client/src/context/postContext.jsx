@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-underscore-dangle */
 import React, {
   createContext, useState, useContext, useEffect,
 } from 'react'
