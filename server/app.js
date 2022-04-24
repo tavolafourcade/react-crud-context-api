@@ -20,4 +20,8 @@ app.use(postsRoutes)
 
 app.use(express.static(join(__dirname, '../client/build')))
 
+// If there is nothin in the backend will redirect to main page
+app.get('*',(req,res)=>{
+  res.sendFile(join(__dirname, '../client/build/index.html'))
+})
 export default app
